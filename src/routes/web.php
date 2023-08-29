@@ -19,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/', [AppointmentController::class, 'index'])->name('appointment.index');
+Route::post('/', [AppointmentController::class, 'makeAppointment'])->name('appointment.makeAppointment');
+Route::put('/', [AppointmentController::class, 'editAppointment'])->name('appointment.editAppointment');
+Route::delete('/', [AppointmentController::class, 'deleteAppointment'])->name('appointment.deleteAppointment');
