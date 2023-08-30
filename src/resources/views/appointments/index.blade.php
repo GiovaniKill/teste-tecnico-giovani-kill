@@ -9,9 +9,21 @@
     <h1>Lista de atendimentos</h1>
 
     <div>
-        <a href="{{route('appointment.newAppointment')}}">
-            <button> 📋 Novo atendimento </button>
-        </a>
+        <form action="{{route('appointment.newAppointment')}}" method="get">
+            <label>
+                Nome do médico:
+                <select id="appointment_urgency" name="appointment_urgency" required>
+                    @foreach($doctors as $doctor)
+                        <option value="{{$doctor -> name}}">{{$doctor -> name}}</option>
+                    @endforeach
+                </select>
+            </label>
+            <label>
+                Data:
+                <input type="date" name="date" placeholder="dd-mm-yyyy" required/>
+            </label>
+            <input type="submit" name="submit" value="📋 Novo atendimento">
+        </form>
     </div>
 
     <div>

@@ -41,10 +41,10 @@
         <label>
             Urgência do atendimento:
             <select id="appointment_urgency" name="appointment_urgency" required>
-                <option value="low">Baixa</option>
-                <option value="medium" selected>Média</option>
-                <option value="high">Alta</option>
-                <option value="urgent">Urgente</option>
+                <option value="Baixa">Baixa</option>
+                <option value="Média" selected>Média</option>
+                <option value="Alta">Alta</option>
+                <option value="Urgente">Urgente</option>
             </select>
         </label>
         <label>
@@ -55,7 +55,7 @@
             Profissional atendente:
             <input type="text" id="attending_professional" name="attending_professional" required>
         </label>
-        <input type="submit" name="Marcar atendimento"/>
+        <input type="submit" name="submit" value="Marcar atendimento"/>
     </form>
 </body>
 </html>
