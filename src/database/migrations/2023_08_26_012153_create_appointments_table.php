@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string('patient_name');
             $table->string('patient_cpf');
             $table->string('patient_sus_card');
-            $table->text('appointment_reason');
-            $table->string('appointment_urgency');
-            $table->string('doctor_name');
-            $table->string('attending_professional');
+            $table->text('reason');
+            $table->text('date');
+            $table->text('time');
+            $table->string('urgency');
+            $table->integer('doctor_id');
+            $table->integer('attending_professional_id');
             $table->timestamps();
+            $table->unique(['date', 'time', 'doctor_id']);
         });
     }
 

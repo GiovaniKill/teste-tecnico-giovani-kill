@@ -16,12 +16,12 @@ class AttendingProfessionalSeeder extends Seeder
     public function run()
     {
         $attending_professionals = [
-            'name' => 'Giovani Souza Kill',
-            'name' => 'Eduardo Pereira Santos',
-            'name' => 'Soraia da Mata Rios',
-            'name' => 'Jacinto Miguel Lima',
+            ['name' => 'Giovani Souza Kill'],
+            ['name' => 'Eduardo Pereira Santos'],
+            ['name' => 'Soraia da Mata Rios'],
+            ['name' => 'Jacinto Miguel Lima'],
         ];
 
-        DB::table('attending_professionals')->insert([$attending_professionals]);
+        DB::table('attending_professionals')->insert($attending_professionals);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Appointment extends Model
 {
@@ -13,9 +14,21 @@ class Appointment extends Model
         'patient_name',
         'patient_cpf',
         'patient_sus_card',
-        'appointment_reason',
-        'appointment_urgency',
-        'doctor_name',
-        'attending_professional'
+        'reason',
+        'date',
+        'time',
+        'urgency',
+        'doctor_id',
+        'attending_professional_id'
     ];
+
+    public function doctor(): HasMany
+    {
+        return $this->hasMany(Doctor::class, 'id');
+    }
+
+    public function attendingProfessional(): HasMany
+    {
+        return $this->hasMany(AttendingProfessional::class, 'id');
+    }
 }

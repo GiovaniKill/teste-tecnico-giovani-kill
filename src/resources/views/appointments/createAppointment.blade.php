@@ -9,6 +9,33 @@
     <h1>Criar atendimento</h1>
 
     <div>
+        <h2>Mudar horário ou médico</h2>
+        <form action="{{route('appointment.newAppointment')}}" method="get">
+            <label>
+                Nome do médico:
+                <select id="doctor_name" name="doctor_name" required>
+                    @foreach($doctors as $doctor)
+                        <option value="{{$doctor->name}}">{{$doctor -> name}}</option>
+                    @endforeach
+                </select>
+            </label>
+            <label>
+                Data:
+                <!-- A data máxima é gerada a partir de um mês de agora
+                usando a função mktime e convertendo para o formato certo 
+                com a função date-->
+                <input 
+                    type="date"
+                    name="date"
+                    min="{{date('Y-m-d')}}"
+                    max="{{date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 30, date('Y')))}}"
+                    required/>
+            </label>
+            <input type="submit" name="submit" value="Consultar disponibilidade">
+        </form>
+    </div>
+
+    <div>
         @if($errors->any())
         Por favor, corrija os seguintes erros para criar o atendimento:
             <ul>
@@ -36,11 +63,24 @@
         </label>
         <label>
             Motivo do atendimento:
-            <input type="text" id="appointment_reason" name="appointment_reason">
+            <input type="text" id="reason" name="reason">
+        </label>
+        <label>
+            Data do atendimento:
+            <input type="date" value="{{$date}}" disabled>
+            <input type="hidden" id="date" name="date" value="{{$date}}">
+        </label>
+        <label>
+            Horário do atendimento:
+            <select type="text" id="time" name="time" required>
+                @foreach($availableTimes as $time)
+                    <option value="{{$time}}">{{$time}}</option>
+                @endforeach
+            </select>   
         </label>
         <label>
             Urgência do atendimento:
-            <select id="appointment_urgency" name="appointment_urgency" required>
+            <select id="urgency" name="urgency" required>
                 <option value="Baixa">Baixa</option>
                 <option value="Média" selected>Média</option>
                 <option value="Alta">Alta</option>
@@ -49,11 +89,16 @@
         </label>
         <label>
             Nome do médico:
-            <input type="text" id="doctor_name" name="doctor_name" required>
+            <input type="text" value="{{$doctor_name}}" disabled>
+            <input type="hidden" id="doctor_name" name="doctor_name" value="{{$doctor_name}}">
         </label>
         <label>
             Profissional atendente:
-            <input type="text" id="attending_professional" name="attending_professional" required>
+            <select id="attending_professional" name="attending_professional" required>
+                    @foreach($attending_professionals as $attending_professional)
+                        <option value="{{$attending_professional -> name}}">{{$attending_professional -> name}}</option>
+                    @endforeach
+                </select>
         </label>
         <input type="submit" name="submit" value="Marcar atendimento"/>
     </form>
