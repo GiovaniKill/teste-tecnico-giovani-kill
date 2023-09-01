@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
     <title>Criar atendimento</title>
 </head>
 <body>
-    <h1>Criar atendimento</h1>
+    <header>
+        <h1>Criar atendimento</h1>
 
-    <div>
-        <h2>Mudar horário ou médico</h2>
-        <form action="{{route('appointment.newAppointment')}}" method="get">
-            <label>
-                Nome do médico:
-                <select id="doctor_name" name="doctor_name" required>
-                    @foreach($doctors as $doctor)
-                        <option value="{{$doctor->name}}">{{$doctor -> name}}</option>
-                    @endforeach
-                </select>
-            </label>
-            <label>
-                Data:
-                <!-- A data máxima é gerada a partir de um mês de agora
-                usando a função mktime e convertendo para o formato certo 
-                com a função date-->
-                <input 
-                    type="date"
-                    name="date"
-                    min="{{date('Y-m-d')}}"
-                    max="{{date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 30, date('Y')))}}"
-                    required/>
-            </label>
-            <input type="submit" name="submit" value="Consultar disponibilidade">
-        </form>
-    </div>
+        <div id="doctor-date-query">
+            <h2>Mudar horário ou médico</h2>
+            <form action="{{route('appointment.newAppointment')}}" method="get">
+                <label>
+                    Nome do médico:
+                    <select id="doctor_name" name="doctor_name" required>
+                        @foreach($doctors as $doctor)
+                            <option value="{{$doctor->name}}">{{$doctor -> name}}</option>
+                        @endforeach
+                    </select>
+                </label>
+                <label>
+                    Data:
+                    <!-- A data máxima é gerada a partir de um mês de agora
+                    usando a função mktime e convertendo para o formato certo 
+                    com a função date-->
+                    <input 
+                        type="date"
+                        name="date"
+                        min="{{date('Y-m-d')}}"
+                        max="{{date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 30, date('Y')))}}"
+                        required/>
+                </label>
+                <input type="submit" name="submit" value="Consultar disponibilidade">
+            </form>
+        </div>
+    </header>
 
-    <div>
+    <div class="alerts">
         @if($errors->any())
         Por favor, corrija os seguintes erros para criar o atendimento:
             <ul>
@@ -46,7 +49,7 @@
         @endif
     </div>
 
-    <form action="{{route('appointment.createAppointment')}}" method="post">
+    <form action="{{route('appointment.createAppointment')}}" method="post" class="appointment-form">
         @csrf
         @method('post')
         <label>

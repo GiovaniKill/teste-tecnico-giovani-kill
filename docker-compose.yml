@@ -10,14 +10,15 @@ services:
       - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
     depends_on:
       - database
+      
 
   database:
-    image: postgres
+    image: postgres:15.4
     container_name: database
     restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: secret
-      POSTGRES_DB: laravel-docker
+      POSTGRES_DB: laravel_docker
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     ports:

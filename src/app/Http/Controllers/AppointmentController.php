@@ -17,7 +17,12 @@ class AppointmentController extends Controller
         $appointments = Appointment::
         join('doctors', 'doctors.id', '=', 'appointments.doctor_id')
         ->join('attending_professionals', 'attending_professionals.id', '=', 'appointments.attending_professional_id')
-        ->select('appointments.*', 'doctors.name AS doctor_name', 'attending_professionals.name AS attending_professional_name')
+        ->select(
+            'appointments.*',
+            'doctors.name AS doctor_name',
+            'attending_professionals.name AS attending_professional_name'
+        )
+        ->orderBy('date', 'asc')
         ->get();
         $doctors = Doctor::all();
         return view('appointments.index', ['appointments' => $appointments, 'doctors' => $doctors]);
@@ -34,7 +39,7 @@ class AppointmentController extends Controller
 
         // Separa os horários já ocupados pelo médico
         $busyTimes = [];
-        foreach($doctor_appointments as $appointment){
+        foreach ($doctor_appointments as $appointment) {
             array_push($busyTimes, $appointment->time);
         }
 
@@ -68,7 +73,9 @@ class AppointmentController extends Controller
             'attending_professional' => 'required',
         ]);
 
-        $data['attending_professional_id'] = AttendingProfessional::where('name', $request->attending_professional)->first()->id;
+        $data['attending_professional_id'] = AttendingProfessional::
+        where('name', $request->attending_professional)
+        ->first()->id;
         $data['doctor_id'] = Doctor::where('name', $request->doctor_name)->first()->id;
         Appointment::create($data);
 
@@ -79,8 +86,8 @@ class AppointmentController extends Controller
     {
         //Verifica se a request veio de dentro da página de editar, para alterar os campos
         //com os novos valores ou procurar no banco pelo nome do médico
-        if($request->submit == 'Consultar disponibilidade'){
-            $doctor= $request->doctor_name;
+        if ($request->submit == 'Consultar disponibilidade') {
+            $doctor = $request->doctor_name;
             $appointment['date'] = $request->date;
         } else {
             $doctor = Doctor::where('id', '=', $appointment->doctor_id)->first()->name;
@@ -95,7 +102,7 @@ class AppointmentController extends Controller
 
         //Separa os horários já ocupados pelo médico
         $busyTimes = [];
-        foreach($doctor_appointments as $doctorAppointment){
+        foreach ($doctor_appointments as $doctorAppointment) {
             array_push($busyTimes, $doctorAppointment->time);
         }
 
@@ -108,7 +115,9 @@ class AppointmentController extends Controller
         $attendingProfessionals = AttendingProfessional::all();
 
         //Consulta o banco para trocar o id pelo nome do atendente
-        $attendingProfessional = AttendingProfessional::where('id', '=', $appointment->attending_professional_id)->first()->name;
+        $attendingProfessional = AttendingProfessional::
+        where('id', '=', $appointment->attending_professional_id)
+        ->first()->name;
 
         return view('appointments.editAppointment', [
             'doctors' => $doctors,
@@ -135,7 +144,9 @@ class AppointmentController extends Controller
             'attending_professional' => 'required',
         ]);
 
-        $data['attending_professional_id'] = AttendingProfessional::where('name', $request->attending_professional)->first()->id;
+        $data['attending_professional_id'] = AttendingProfessional::
+        where('name', $request->attending_professional)
+        ->first()->id;
         $data['doctor_id'] = Doctor::where('name', $request->doctor_name)->first()->id;
         $appointment->update($data);
 
