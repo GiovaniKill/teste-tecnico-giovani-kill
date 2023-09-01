@@ -4,6 +4,16 @@ namespace App\Utils;
 
 class MakeAgenda
 {
+    /**
+     * This function takes a few parameters to create an agenda for a day.
+     *
+     * @param string $startingTime Starting time.
+     * @param string $finishingTime Finishing time.
+     * @param int $appointmentDuration Duration of the appointment in minutes.
+     * @param string $lunchTime Description of the parameter.
+     * @param int $lunchDuration Duration of the lunch time in minutes.
+     * @return array Array of times.
+     */
     public static function createDay(
         $startingTime,
         $finishingTime,

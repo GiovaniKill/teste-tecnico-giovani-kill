@@ -36,6 +36,12 @@
     </div>
 
     <div>
+        @if(session()->has('success'))
+            {{session('success')}}
+        @endif
+    </div>
+
+    <div>
         <table border='1'>
             <thead>
                 <tr>
@@ -57,9 +63,11 @@
 
                     <tr>
                         <td>
-                            <a href="">
-                                <button>❌</button>
-                            </a>
+                            <form action="{{route('appointment.deleteAppointment', ['appointment' => $appointment])}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit">❌</button>
+                            </form>
                         </td>
                         <td>
                             <a href="{{route('appointment.editAppointment', ['appointment' => $appointment])}}">

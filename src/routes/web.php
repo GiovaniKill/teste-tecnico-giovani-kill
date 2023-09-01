@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/create', [AppointmentController::class, 'newAppointment'])->name('appointment.newAppointment');
+Route::get('/new', [AppointmentController::class, 'newAppointment'])->name('appointment.newAppointment');
 Route::post('/create', [AppointmentController::class, 'createAppointment'])->name('appointment.createAppointment');
 Route::get('/edit/{appointment}', [AppointmentController::class, 'editAppointment'])->name('appointment.editAppointment');
+Route::put('/update/{appointment}', [AppointmentController::class, 'updateAppointment'])->name('appointment.updateAppointment');
+Route::delete('/delete/{appointment}', [AppointmentController::class, 'deleteAppointment'])->name('appointment.deleteAppointment');
 Route::get('/', [AppointmentController::class, 'index'])->name('appointment.index');

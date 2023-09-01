@@ -95,10 +95,10 @@
         <label>
             Profissional atendente:
             <select id="attending_professional" name="attending_professional" required>
-                    @foreach($attending_professionals as $attending_professional)
-                        <option value="{{$attending_professional -> name}}">{{$attending_professional -> name}}</option>
-                    @endforeach
-                </select>
+                @foreach($attending_professionals as $attending_professional)
+                    <option value="{{$attending_professional -> name}}">{{$attending_professional -> name}}</option>
+                @endforeach
+            </select>
         </label>
         <input type="submit" name="submit" value="Marcar atendimento"/>
     </form>
